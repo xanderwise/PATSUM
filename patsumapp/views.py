@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from patsumapp.models import Tel
+
 
 # Create your views here.
 
@@ -12,7 +15,18 @@ def about(request):
     return render(request, 'about.html')
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == "POST":
+        mycontact = Tel(
+            name=request.POST['name'],
+            email=request.POST['email'],
+            subject=request.POST['subject'],
+            message=request.POST['message'],
+        )
+        mycontact.save()
+        return redirect('/contact')
+
+    else:
+        return render(request, 'contact.html')
 
 def service(request):
     return render(request, 'service.html')
