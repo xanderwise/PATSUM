@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-
+from django.contrib import messages
 from patsumapp.models import Tel
 
 
@@ -14,6 +14,7 @@ def index(request):
 def about(request):
     return render(request, 'about.html')
 
+
 def contact(request):
     if request.method == "POST":
         mycontact = Tel(
@@ -23,10 +24,13 @@ def contact(request):
             message=request.POST['message'],
         )
         mycontact.save()
+
+        # Set a success message
+        messages.success(request, "Your message has been sent. Thank you!")
         return redirect('/contact')
 
-    else:
-        return render(request, 'contact.html')
+    return render(request, 'contact.html')
+
 
 def service(request):
     return render(request, 'service.html')
