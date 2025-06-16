@@ -4,7 +4,8 @@ from django.db import models
 class Tel(models.Model):
     name = models.CharField(max_length=50)
     email = models.EmailField()
-    subject = models.CharField(max_length=50)
+    phone = models.CharField(max_length=20)  # ✅ New phone field
+    subject = models.CharField(max_length=50)  # This now represents the selected plan
     message = models.TextField()
 
     def __str__(self):
